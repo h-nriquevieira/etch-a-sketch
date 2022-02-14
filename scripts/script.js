@@ -9,6 +9,7 @@ const eraserButton = document.querySelector('#eraser-mode');
 const darkenButton = document.querySelector('#darken-mode');
 const lightenButton = document.querySelector('#lighten-mode');
 const input = document.querySelector('input');
+const colorPicker = document.querySelector('#color-picker');
 const gridToggle = document.querySelector('#grid-toggle')
 let rainbowMode = true;
 let colorMode = false;
@@ -16,7 +17,7 @@ let eraserMode = false;
 let darkenMode = false;
 let lightenMode = false;
 let gridOn = false;
-let color = 'rgba(88,192,217,255)';
+let color = colorPicker.value;
 
 
 function createRows(gridSize) {
@@ -108,6 +109,25 @@ function generateRandomColor() {
   color = `rgba(${r}, ${g}, ${b}, 0.5)`;
 }
 
+function convertColor(hex) {
+  let c;
+  if(/^#([A-Fa-f0-9]{3}){1,2}$/.test(hex)){
+      c= hex.substring(1).split('');
+      if(c.length== 3){
+          c= [c[0], c[0], c[1], c[1], c[2], c[2]];
+      }
+      c= '0x'+c.join('');
+      return 'rgba('+[(c>>16)&255, (c>>8)&255, c&255].join(',')+',0.8)';
+  }
+  throw new Error('Bad Hex');
+
+}
+
+function setColor() {
+  let hex = colorPicker.value;
+  color = convertColor(hex);
+}
+
 function gridResetButton() {
   resetGrid();
   createGrid(16);
@@ -139,6 +159,7 @@ function toggleColorMode() {
   eraserMode = false;
   darkenMode = false;
   lightenMode = false;
+  setColor();
 }
 
 function toggleEraserMode() {
@@ -184,6 +205,8 @@ darkenButton.addEventListener('click', toggleDarkenMode);
 lightenButton.addEventListener('click', toggleLightenMode);
 eraserButton.addEventListener('click', toggleEraserMode);
 gridToggle.addEventListener('click', toggleGrid);
+colorPicker.addEventListener('change', toggleColorMode);
+colorPicker.addEventListener('click', toggleColorMode);
 gridContainer.addEventListener('click', turnOn);
 
 input.addEventListener('keydown', checkKey);

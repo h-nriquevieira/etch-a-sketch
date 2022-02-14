@@ -9,6 +9,7 @@ const eraserButton = document.querySelector('#eraser-mode');
 const darkenButton = document.querySelector('#darken-mode');
 const lightenButton = document.querySelector('#lighten-mode');
 const input = document.querySelector('input');
+const gridToggle = document.querySelector('#grid-toggle')
 let rainbowMode = true;
 let colorMode = false;
 let eraserMode = false;
@@ -32,7 +33,7 @@ function createRows(gridSize) {
 function createSquares(numOfSquares, row, rowId) {
   for (let i = 0; i < numOfSquares; i++) {
     const square = document.createElement('div');
-    square.style.cssText = 'flex: 1; border: 1px solid lightgray;';
+    square.style.cssText = 'flex: 1;';
     square.id = `square-${rowId}-${i+1}`;
     row.appendChild(square);
   }
@@ -164,6 +165,10 @@ function toggleLightenMode() {
   lightenMode = true;
 }
 
+function toggleGrid() {
+  gridContainer.classList.toggle('grid-on');
+}
+
 function checkKey(e) {
   console.log(e.code);
   if (e.code === 'Enter' || e.code ==='NumpadEnter') gridCreateButton();
@@ -178,6 +183,7 @@ colorButton.addEventListener('click', toggleColorMode);
 darkenButton.addEventListener('click', toggleDarkenMode);
 lightenButton.addEventListener('click', toggleLightenMode);
 eraserButton.addEventListener('click', toggleEraserMode);
+gridToggle.addEventListener('click', toggleGrid);
 gridContainer.addEventListener('click', turnOn);
 
 input.addEventListener('keydown', checkKey);

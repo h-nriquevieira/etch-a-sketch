@@ -4,8 +4,8 @@ let squares;
 const reset = document.querySelector('#reset');
 const gridCreate = document.querySelector('#create-grid');
 const rainbowButton = document.querySelector('#rainbow-mode');
-let rainbowMode = false;
-let color = "black";
+let rainbowMode = true;
+let color = 'rgba(88,192,217,255)';
 
 
 function createRows(gridSize) {
@@ -48,10 +48,22 @@ function createGrid(gridSize) {
 }
 
 function changeBackground() {
-  if (rainbowMode) {
-    generateRandomColor();
+  let currentBg = window.getComputedStyle(this).getPropertyValue('background-color');
+  console.log(currentBg);
+  if (currentBg === 'rgba(0, 0, 0, 0)') {
+    if (rainbowMode) {
+      generateRandomColor();
+    } else {
+      color = 'rgba(0, 0, 0, 0.1)'
+    }
+    
+    this.style.cssText += `background-color: ${color};`;
+  } else {
+    let alpha = currentBg.match(/[^,]+(?=\))/);
+    let newAlpha = +alpha[0] + 0.1;
+    color = currentBg.replace(/[^,]+(?=\))/, newAlpha);
+    this.style.cssText += `background-color: ${color};`;
   }
-  this.style.cssText += `background-color: ${color};`;
 }
 
 function generateRandomColor() {
@@ -59,7 +71,7 @@ function generateRandomColor() {
   const g = Math.floor(Math.random() * 255);
   const b = Math.floor(Math.random() * 255);
 
-  color = `rgb(${r}, ${g}, ${b})`;
+  color = `rgba(${r}, ${g}, ${b}, 0.1)`;
 }
 
 function gridResetButton() {
@@ -83,7 +95,7 @@ function toggleRainbowMode() {
   switch (rainbowMode) {
     case true:
       rainbowMode = false;
-      color = 'black';
+      color = 'rgba(0, 0, 0, 0.1)';
       break;
     case false:
       rainbowMode = true;

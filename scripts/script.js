@@ -48,12 +48,17 @@ function changeBackground() {
   this.style.cssText += 'background-color: black;';  
 }
 
-function resetButton() {
+
+function gridCreateButton() {
   resetGrid();
-  const gridSize = prompt('Enter a grid size (up to 100):');
-  if (gridSize > 100) resetButton();
-  createGrid(gridSize);
+  const gridSize = document.querySelector('#grid-size').value;
+  if (gridSize > 100) {
+    alert('Max grid size is 100!');
+  } else {
+    createGrid(gridSize);
+  }
+
 }
 
-reset.addEventListener('click', resetButton);
-gridCreate.addEventListener('click', createGrid);
+reset.addEventListener('click', resetGrid);
+gridCreate.addEventListener('click', gridCreateButton);

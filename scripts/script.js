@@ -14,6 +14,7 @@ let colorMode = false;
 let eraserMode = false;
 let darkenMode = false;
 let lightenMode = false;
+let gridOn = false;
 let color = 'rgba(88,192,217,255)';
 
 
@@ -45,33 +46,49 @@ function resetGrid() {
   }
 }
 
-function addEvents() {
+function turnOn() {
   squares = document.querySelectorAll(`[id*="square"]`);
   squares.forEach(square => square.addEventListener('mouseover', changeBackground));
+  gridContainer.removeEventListener('click', turnOn);
+  gridContainer.addEventListener('click', turnOff);
+}
+
+function turnOff() {
+  squares = document.querySelectorAll(`[id*="square"]`);
+  squares.forEach(square => square.removeEventListener('mouseover', changeBackground));
+  gridContainer.removeEventListener('click', turnOff);
+  gridContainer.addEventListener('click', turnOn);
 }
 
 function createGrid(gridSize) {
   resetGrid();
   createRows(gridSize);
-  addEvents();
 }
 
 function changeBackground() {
 
   if (colorMode) {
     this.style.cssText += `background-color: ${color}`;
-  } else if (rainbowMode) {
+  } 
+  
+  else if (rainbowMode) {
     generateRandomColor();
     this.style.cssText += `background-color: ${color}`;
-  } else if (eraserMode) {
+  }
+  
+  else if (eraserMode) {
     this.style.cssText += `background-color: rgba(255, 255, 255, 0.5)`;
-  } else if (darkenMode) {
+  }
+  
+  else if (darkenMode) {
     let currentBg = window.getComputedStyle(this).getPropertyValue('background-color');
     let alpha = currentBg.match(/[^,]+(?=\))/);
     let newAlpha = +alpha[0] + 0.1;
     color = currentBg.replace(/[^,]+(?=\))/, newAlpha);
     this.style.cssText += `background-color: ${color};`;
-  } else if (lightenMode) {
+  }
+  
+  else if (lightenMode) {
     let currentBg = window.getComputedStyle(this).getPropertyValue('background-color');
     let alpha = currentBg.match(/[^,]+(?=\))/);
     let newAlpha = +alpha[0] - 0.1;
@@ -161,6 +178,7 @@ colorButton.addEventListener('click', toggleColorMode);
 darkenButton.addEventListener('click', toggleDarkenMode);
 lightenButton.addEventListener('click', toggleLightenMode);
 eraserButton.addEventListener('click', toggleEraserMode);
+gridContainer.addEventListener('click', turnOn);
 
 input.addEventListener('keydown', checkKey);
 

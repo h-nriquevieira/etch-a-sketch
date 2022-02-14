@@ -4,6 +4,7 @@ let squares;
 const reset = document.querySelector('#reset');
 const gridCreate = document.querySelector('#create-grid');
 const rainbowButton = document.querySelector('#rainbow-mode');
+const input = document.querySelector('input');
 let rainbowMode = true;
 let color = 'rgba(88,192,217,255)';
 
@@ -103,11 +104,17 @@ function toggleRainbowMode() {
   }
 }
 
+function checkKey(e) {
+  console.log(e.code);
+  if (e.code === 'Enter' || e.code ==='NumpadEnter') gridCreateButton();
+}
+
 createGrid(16);
 
 reset.addEventListener('click', gridResetButton);
 gridCreate.addEventListener('click', gridCreateButton);
 rainbowButton.addEventListener('click', toggleRainbowMode);
+input.addEventListener('keydown', checkKey);
 
 
 /*

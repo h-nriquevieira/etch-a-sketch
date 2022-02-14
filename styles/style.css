@@ -19,9 +19,11 @@ body {
 .grid-container {
   width: 460px;
   height: 460px;
-  border: 1px solid black;
+  border: 1px solid lightgray;
   display: flex;
   flex-direction: column;
   justify-content: stretch;
   align-items: stretch;
+  box-shadow: 10px 10px gray;
+  margin-bottom: 14px;
 }

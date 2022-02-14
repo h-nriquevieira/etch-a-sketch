@@ -3,6 +3,9 @@ const gridHeight = gridContainer.offsetHeight;
 let squares;
 const reset = document.querySelector('#reset');
 const gridCreate = document.querySelector('#create-grid');
+const rainbowButton = document.querySelector('#rainbow-mode');
+let rainbowMode = false;
+let color = "black";
 
 
 function createRows(gridSize) {
@@ -45,7 +48,23 @@ function createGrid(gridSize) {
 }
 
 function changeBackground() {
-  this.style.cssText += 'background-color: black;';  
+  if (rainbowMode) {
+    generateRandomColor();
+  }
+  this.style.cssText += `background-color: ${color};`;
+}
+
+function generateRandomColor() {
+  const r = Math.floor(Math.random() * 255);
+  const g = Math.floor(Math.random() * 255);
+  const b = Math.floor(Math.random() * 255);
+
+  color = `rgb(${r}, ${g}, ${b})`;
+}
+
+function gridResetButton() {
+  resetGrid();
+  createGrid(16);
 }
 
 
@@ -60,5 +79,31 @@ function gridCreateButton() {
 
 }
 
-reset.addEventListener('click', resetGrid);
+function toggleRainbowMode() {
+  switch (rainbowMode) {
+    case true:
+      rainbowMode = false;
+      color = 'black';
+      break;
+    case false:
+      rainbowMode = true;
+      break;
+  }
+}
+
+createGrid(16);
+
+reset.addEventListener('click', gridResetButton);
 gridCreate.addEventListener('click', gridCreateButton);
+rainbowButton.addEventListener('click', toggleRainbowMode);
+
+
+/*
+RAINBOW MODE
+
+- create variable to act as a rainbow mode toggle
+- create a global color variable, default to black
+- on change background:
+  - if rainbow mode is on, generate random color
+  - continue as usual
+  */

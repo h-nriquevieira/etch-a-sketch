@@ -4,8 +4,16 @@ let squares;
 const reset = document.querySelector('#reset');
 const gridCreate = document.querySelector('#create-grid');
 const rainbowButton = document.querySelector('#rainbow-mode');
+const colorButton = document.querySelector('#color-mode');
+const eraserButton = document.querySelector('#eraser-mode');
+const darkenButton = document.querySelector('#darken-mode');
+const lightenButton = document.querySelector('#lighten-mode');
 const input = document.querySelector('input');
 let rainbowMode = true;
+let colorMode = false;
+let eraserMode = false;
+let darkenMode = false;
+let lightenMode = false;
 let color = 'rgba(88,192,217,255)';
 
 
@@ -49,19 +57,26 @@ function createGrid(gridSize) {
 }
 
 function changeBackground() {
-  let currentBg = window.getComputedStyle(this).getPropertyValue('background-color');
-  console.log(currentBg);
-  if (currentBg === 'rgba(0, 0, 0, 0)') {
-    if (rainbowMode) {
-      generateRandomColor();
-    } else {
-      color = 'rgba(0, 0, 0, 0.1)'
-    }
-    
-    this.style.cssText += `background-color: ${color};`;
-  } else {
+
+  if (colorMode) {
+    this.style.cssText += `background-color: ${color}`;
+  } else if (rainbowMode) {
+    generateRandomColor();
+    this.style.cssText += `background-color: ${color}`;
+  } else if (eraserMode) {
+    this.style.cssText += `background-color: rgba(255, 255, 255, 0.5)`;
+  } else if (darkenMode) {
+    let currentBg = window.getComputedStyle(this).getPropertyValue('background-color');
     let alpha = currentBg.match(/[^,]+(?=\))/);
     let newAlpha = +alpha[0] + 0.1;
+    color = currentBg.replace(/[^,]+(?=\))/, newAlpha);
+    this.style.cssText += `background-color: ${color};`;
+  } else if (lightenMode) {
+    let currentBg = window.getComputedStyle(this).getPropertyValue('background-color');
+    let alpha = currentBg.match(/[^,]+(?=\))/);
+    let newAlpha = +alpha[0] - 0.1;
+    console.log(alpha);
+    console.log(newAlpha);
     color = currentBg.replace(/[^,]+(?=\))/, newAlpha);
     this.style.cssText += `background-color: ${color};`;
   }
@@ -72,7 +87,7 @@ function generateRandomColor() {
   const g = Math.floor(Math.random() * 255);
   const b = Math.floor(Math.random() * 255);
 
-  color = `rgba(${r}, ${g}, ${b}, 0.1)`;
+  color = `rgba(${r}, ${g}, ${b}, 0.5)`;
 }
 
 function gridResetButton() {
@@ -93,15 +108,43 @@ function gridCreateButton() {
 }
 
 function toggleRainbowMode() {
-  switch (rainbowMode) {
-    case true:
-      rainbowMode = false;
-      color = 'rgba(0, 0, 0, 0.1)';
-      break;
-    case false:
-      rainbowMode = true;
-      break;
-  }
+  rainbowMode = true;
+  colorMode = false;
+  eraserMode = false;
+  darkenMode = false;
+  lightenMode = false;
+}
+
+function toggleColorMode() {
+  rainbowMode = false;
+  colorMode = true;
+  eraserMode = false;
+  darkenMode = false;
+  lightenMode = false;
+}
+
+function toggleEraserMode() {
+  rainbowMode = false;
+  colorMode = false;
+  eraserMode = true;
+  darkenMode = false;
+  lightenMode = false;
+}
+
+function toggleDarkenMode() {
+  rainbowMode = false;
+  colorMode = false;
+  eraserMode = false;
+  darkenMode = true;
+  lightenMode = false;
+}
+
+function toggleLightenMode() {
+  rainbowMode = false;
+  colorMode = false;
+  eraserMode = false;
+  darkenMode = false;
+  lightenMode = true;
 }
 
 function checkKey(e) {
@@ -114,15 +157,22 @@ createGrid(16);
 reset.addEventListener('click', gridResetButton);
 gridCreate.addEventListener('click', gridCreateButton);
 rainbowButton.addEventListener('click', toggleRainbowMode);
+colorButton.addEventListener('click', toggleColorMode);
+darkenButton.addEventListener('click', toggleDarkenMode);
+lightenButton.addEventListener('click', toggleLightenMode);
+eraserButton.addEventListener('click', toggleEraserMode);
+
 input.addEventListener('keydown', checkKey);
 
 
-/*
-RAINBOW MODE
 
-- create variable to act as a rainbow mode toggle
-- create a global color variable, default to black
-- on change background:
-  - if rainbow mode is on, generate random color
-  - continue as usual
-  */
+/*
+Three modes: color, rainbow and eraser
+
+- change between modes 
+  - create variables to store each mode state
+  - on change background function, add three switch cases, one for each mode
+  - rainbow: current functionality;
+  - color, read from global color variable
+  - eraser: white.
+*/

@@ -44,6 +44,15 @@ input {
   border: none;
   font-family: 'Open Sans', sans-serif;
   font-weight: 300;
+  font-size: 14px;
+  color: #EBF2FA;
+  text-transform: lowercase;
+}
+
+input::placeholder {
+  font-family: 'Open Sans', sans-serif;
+  font-weight: 300;
+  font-size: 10px;
   color: #EBF2FA;
   text-transform: lowercase;
 }
@@ -73,15 +82,37 @@ input {
   flex-direction: row-reverse;
 }
 
+#grid-size {
+  padding: 4px;
+  font-size: 10px;
+  text-align: center;
+}
+
+#grid-size:focus-visible {
+  outline: none;
+}
+
+
+
 #grid-size,
 #color-picker {
   flex: 1;
-  max-width: 40px;
+  max-width: 52px;
 }
 
 #color-picker,
+#picker-bg,
 button {
   cursor: pointer;
+}
+
+#color-picker {
+  visibility: hidden;
+}
+
+#picker-bg {
+  margin-bottom: 8px;
+  height: 30px;
 }
 
 #grid-size {

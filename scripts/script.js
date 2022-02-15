@@ -10,7 +10,7 @@ const darkenButton = document.querySelector('#darken-mode');
 const lightenButton = document.querySelector('#lighten-mode');
 const input = document.querySelector('input');
 const colorPicker = document.querySelector('#color-picker');
-const pickerWrapper = document.querySelector('.color-picker-wrapper');
+const pickerWrapper = document.querySelector('#picker-bg');
 const gridToggle = document.querySelector('#grid-toggle')
 let rainbowMode = true;
 let colorMode = false;
@@ -20,6 +20,7 @@ let lightenMode = false;
 let gridOn = false;
 let color = colorPicker.value;
 
+pickerWrapper.style.backgroundColor = colorPicker.value;
 
 function createRows(gridSize) {
   for (let i = 0; i < gridSize; i++) {
@@ -161,6 +162,7 @@ function toggleColorMode() {
   darkenMode = false;
   lightenMode = false;
   setColor();
+  updatePickerBg();
 }
 
 function toggleEraserMode() {
@@ -194,6 +196,10 @@ function toggleGrid() {
 function checkKey(e) {
   console.log(e.code);
   if (e.code === 'Enter' || e.code ==='NumpadEnter') gridCreateButton();
+}
+
+function updatePickerBg() {
+  pickerWrapper.style.backgroundColor = colorPicker.value;
 }
 
 createGrid(16);

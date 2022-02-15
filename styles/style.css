@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;800&display=swap');
+
 html {
   box-sizing: border-box;
   margin-
@@ -14,29 +16,107 @@ body {
   justify-content: center;
   flex-direction: column;
   align-items: center;
+  background-color: #CAD5E2;
+  font-family: 'Open Sans', sans-serif;
+}
+
+h1{
+  text-transform: uppercase;
+  font-weight: 800;
+  font-size: 64px ;
+  color: #679436;
+  margin: 0;
+  line-height: 65%;
+}
+
+h2 {
+  font-weight: 800;
+  text-transform: uppercase;
+  color: #064789;
+  margin: 0;
+}
+
+button,
+input {
+  margin-bottom: 4px;
+  height: 30px;
+  background-color: #064789;
+  border: none;
+  font-family: 'Open Sans', sans-serif;
+  font-weight: 300;
+  color: #EBF2FA;
+  text-transform: lowercase;
 }
 
 .main-container {
   width: 70%;
   display: flex;
-  justify-content: space-around;
-  align-items: center;
+  justify-content: center;
+  align-items: stretch;
+  padding: 32px 0;
 }
 
 .sidebar {
   display: flex;
   flex-direction: column;
+  background-color: #427AA1;
+  height: 400px;
+  width: 220px;
+  padding: 22px;
+  margin-right: 128px;
+  box-shadow: 10px 10px #A5BE00;
+}
+
+.grid-create-box,
+.color-input-box {
+  display: flex;
+  flex-direction: row-reverse;
+}
+
+#grid-size,
+#color-picker {
+  flex: 1;
+  max-width: 40px;
+}
+
+#grid-size {
+  background-color: #06478966;
+}
+
+
+#create-grid {
+  flex: 3;
+  margin-right: 4px;
+}
+
+#color-mode {
+  flex: 3;
+  margin-left: 4px;
+}
+
+#grid-toggle {
+  margin-top: auto;
+}
+
+#reset {
+  margin-bottom: 0;
+}
+
+#grid-toggle,
+#reset {
+  background-color: #679436;
 }
 
 .grid-container {
-  width: 350px;
-  height: 350px;
+  width: 400px;
+  height: 400px;
   display: flex;
   flex-direction: column;
   justify-content: stretch;
   align-items: stretch;
-  box-shadow: 10px 10px gray;
+  box-shadow: 10px 10px #A5BE00;
   margin-bottom: 14px;
+  background-color: white;
 }
 
 .grid-on * {

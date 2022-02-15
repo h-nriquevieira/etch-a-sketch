@@ -10,18 +10,23 @@
 </head>
 <body>
   <h1>Etch-a-sketch</h1>
+  <h2>Click on grid to draw</h2>
   <div class='main-container'>
     <div class='sidebar'>
-      <input type='number' id='grid-size'>
-      <button id='create-grid'>Create grid</button>
-      <button id='reset'>Reset</button>
+      <div class='grid-create-box'>
+        <input value='grid size' type='text' id='grid-size'>
+        <button id='create-grid'>Create grid</button>
+      </div>
       <button id='rainbow-mode'>Rainbow Mode</button>
-      <button id='color-mode'>Color Mode</button>
-      <input id='color-picker' value='#7d81fa' type='color'>
-      <button id='eraser-mode'>Eraser</button>
+      <div class='color-input-box'>
+        <button id='color-mode'>Color Mode</button>
+        <input id='color-picker' value='#7d81fa' type='color'>
+      </div>
       <button id='darken-mode'>Darken Mode</button>
       <button id='lighten-mode'>Lighten Mode</button>
+      <button id='eraser-mode'>Eraser</button>
       <button id='grid-toggle'>Toggle grid</button>
+      <button id='reset'>Reset</button>
     </div>
     <div class='grid-container grid-on'></div>
   </div>

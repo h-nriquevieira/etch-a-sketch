@@ -53,6 +53,7 @@ function resetGrid() {
 function turnOn() {
   squares = document.querySelectorAll(`[id*="square"]`);
   squares.forEach(square => square.addEventListener('mouseover', changeBackground));
+  squares.forEach(square => square.addEventListener('touchstart', changeBackground));
   gridContainer.removeEventListener('click', turnOn);
   gridContainer.addEventListener('click', turnOff);
 }
@@ -217,16 +218,3 @@ colorPicker.addEventListener('click', toggleColorMode);
 gridContainer.addEventListener('click', turnOn);
 
 input.addEventListener('keydown', checkKey);
-
-
-
-/*
-Three modes: color, rainbow and eraser
-
-- change between modes 
-  - create variables to store each mode state
-  - on change background function, add three switch cases, one for each mode
-  - rainbow: current functionality;
-  - color, read from global color variable
-  - eraser: white.
-*/

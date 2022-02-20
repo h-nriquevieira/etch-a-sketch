@@ -10,7 +10,6 @@ html {
 }
 
 body {
-  height: 100vh;
   margin: 0;
   display: flex;
   justify-content: center;
@@ -157,4 +156,33 @@ button {
 
 .grid-on * {
   border: 0.1px solid lightgray;
+}
+
+@media screen and (max-width: 1023px) {
+    h1 {
+    margin: 16px 0 0 0;
+    font-size: 40px;
+  }
+
+  .main-container {
+    width: 90%;
+    flex-direction: column-reverse;
+    align-items: center;
+  }
+
+  .grid-container {
+    width: 300px;
+    height: 300px;
+  }
+
+  .sidebar {
+    margin: 16px 0 0 0;
+    height: auto;
+  }
+}
+
+@media screen and (min-width: 1024px) {
+  body {
+    height: 100vh;
+  }
 }
